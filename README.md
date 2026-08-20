@@ -2,7 +2,7 @@
 
 This repository contains Cypress end-to-end automation practice tests.
 
-The project demonstrates basic and intermediate Cypress concepts, including UI testing, login flow validation, network request interception, mocked API responses, API error response handling, and HTML reporting with Mochawesome.
+The project was created as a practice project while learning Cypress basics, UI testing, network testing, simple data-driven testing, custom commands, and HTML reporting.
 
 ## Technologies Used
 
@@ -18,9 +18,11 @@ cypress_automation_practice/
 ├── cypress/
 │   ├── e2e/
 │   │   ├── login.cy.js
+│   │   ├── login-data.cy.js
 │   │   └── network.cy.js
 │   ├── fixtures/
-│   │   └── example.json
+│   │   ├── example.json
+│   │   └── login-users.json
 │   └── support/
 │       ├── commands.js
 │       └── e2e.js
@@ -50,6 +52,28 @@ Covered actions:
 - Verify the success message
 - Verify that the user is redirected to the secure page
 
+### Data-Driven Login Tests
+
+The data-driven login test uses fixture data from:
+
+```text
+cypress/fixtures/login-users.json
+```
+
+Covered scenarios:
+
+- Valid login
+- Invalid username
+- Invalid password
+
+The test uses a custom Cypress command:
+
+```javascript
+cy.login(username, password);
+```
+
+This keeps the login steps reusable and avoids repeating the same commands in every test.
+
 ### Network Tests
 
 The network test file demonstrates Cypress network testing using `cy.intercept()`.
@@ -76,6 +100,9 @@ This project includes practice with:
 - Response status assertions
 - Mocked API responses
 - Error response simulation
+- Cypress custom commands
+- Fixture-based test data
+- Simple data-driven testing
 - Mochawesome HTML reporting
 
 ## How to Install
@@ -112,10 +139,16 @@ npx.cmd cypress run
 
 ## How to Run a Specific Test File
 
-Run only the login tests:
+Run only the login test:
 
 ```powershell
 npx.cmd cypress run --spec "cypress/e2e/login.cy.js"
+```
+
+Run only the data-driven login test:
+
+```powershell
+npx.cmd cypress run --spec "cypress/e2e/login-data.cy.js"
 ```
 
 Run only the network tests:
@@ -136,28 +169,30 @@ cypress/reports/html/index.html
 
 The report folder is ignored by Git because it is generated automatically after test execution.
 
-## Example Successful Network Test Run
+## Example Successful Test Run
 
 ```text
-Network Requests
-  ✓ intercepts a real network request
-  ✓ stubs a fake network response
-  ✓ handles an API error response
+login-data.cy.js    1 passing
+login.cy.js         1 passing
+network.cy.js       3 passing
 
-3 passing
+All specs passed
+5 passing
 ```
 
 ## What This Project Demonstrates
 
-This repository shows practical Cypress automation skills, including:
+This repository shows practice with Cypress automation concepts, including:
 
-- End-to-end UI testing
+- Basic end-to-end UI testing
 - Login flow validation
+- Simple reusable custom commands
+- Fixture-based test data
+- Basic data-driven testing
 - Network request interception
 - API response mocking
 - Negative API response simulation
 - Test reporting with Mochawesome
-- Clean project structure for Cypress practice
 
 ## Notes
 
@@ -170,6 +205,8 @@ cypress/screenshots/
 cypress/downloads/
 cypress/reports/
 .idea/
+*.log
+.DS_Store
 ```
 
 To run this project on another machine:
